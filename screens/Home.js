@@ -6,9 +6,9 @@ import Categories from '../components/Categories'
 import RestaurantItems from '../components/RestaurantItems'
 import { Divider } from 'react-native-elements'
 import BottomTabs from '../components/BottomTabs'
+import config from '../config.js'
 
-const YELP_API_KEY =
-  'meD7v2TekSd1YSLQKj9OEeKgRmruTBFa0cjs5lk4snkM7kjtQBster-GpOLTe-bj4Lvky5nvjQmHvVRH9wsmhiPaE4W3_vEg0DR5gWlyQ4J7XiZHQXO3iFjsJN7xYXYx'
+const YELP_API_KEY = config.api.YELP
 
 export default function Home () {
   const [ restaurantData, setRestaurantData ] = useState( [] )
