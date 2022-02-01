@@ -59,6 +59,5 @@ const RestaurantInfo = ( props ) => (
     } }>
       <Text>{ props.rating }</Text>
     </View>
-
   </View>
 )
