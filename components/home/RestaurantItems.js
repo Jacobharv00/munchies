@@ -2,30 +2,40 @@ import { View, Text, Image, TouchableOpacity } from 'react-native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 
-export default function RestaurantItems ( { restaurantData } ) {
+export default function RestaurantItems ( { navigation, restaurantData } ) {
   return (
-    <TouchableOpacity activeOpacity={ 1 } style={ { marginBottom: 30 } }>
+    <>
       { restaurantData.map( ( restaurant, index ) => (
-        <View key={ index }
-          style={ { marginTop: 10, padding: 15, backgroundColor: '#fff' } }
+        <TouchableOpacity
+          activeOpacity={ 1 }
+          style={ { marginBottom: 30 } }
+          key={ index }
+          onPress={ () => navigation.navigate( 'RestaurantDetail', {
+            name: restaurant.name,
+            image: restaurant.image_url,
+            price: restaurant.price,
+            reviews: restaurant.review_count,
+            rating: restaurant.rating,
+            categories: restaurant.categories
+          } ) }
         >
-          <RestaurantImage image={ restaurant.image_url } />
-          <RestaurantInfo
-            name={ restaurant.name }
-            rating={ restaurant.rating }
-          />
-        </View>
+          <View style={ { marginTop: 10, padding: 15, backgroundColor: '#fff' } }>
+            <RestaurantImage image={ restaurant.image_url } />
+            <RestaurantInfo
+              name={ restaurant.name }
+              rating={ restaurant.rating }
+            />
+          </View>
+        </TouchableOpacity>
       ) ) }
-    </TouchableOpacity>
+    </>
   )
 }
 
 // Sub-Components
-const RestaurantImage = ( props ) => (
+const RestaurantImage = ( { image } ) => (
   <>
-    <Image source={ {
-      uri: props.image
-    } }
+    <Image source={ { uri: image } }
       style={ { width: '100%', height: 180 } }
     />
     <TouchableOpacity style={ { position: 'absolute', right: 20, top: 20 } }>
@@ -34,7 +44,7 @@ const RestaurantImage = ( props ) => (
   </>
 )
 
-const RestaurantInfo = ( props ) => (
+const RestaurantInfo = ( { name, rating } ) => (
   <View style={ {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -43,7 +53,7 @@ const RestaurantInfo = ( props ) => (
   } }>
     <View>
       <Text style={ { fontSize: 15, fontWeight: 'bold' } }>
-        { props.name }
+        { name }
       </Text>
       <Text style={ { fontSize: 13, color: 'grey' } }>
         30-45 • min
@@ -57,7 +67,7 @@ const RestaurantInfo = ( props ) => (
       justifyContent: 'center',
       borderRadius: 15
     } }>
-      <Text>{ props.rating }</Text>
+      <Text>{ rating }</Text>
     </View>
   </View>
 )
