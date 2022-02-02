@@ -18,46 +18,52 @@ const foods = [
   },
   {
     title: 'Cer al of the l',
-    description: "Our finest boxed lucky charms with milk from a goat",
+    description: "With milk from a goat",
     price: '$7.25',
     image: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8M3x8fGVufDB8fHx8&w=1000&q=80'
   },
   {
-    title: 'BBQ Sammy',
-    description: "Served with pickles, cardboard, and rice",
-    price: '$17.00',
+    title: 'Toad in a hole',
+    description: "With milk from a cow",
+    price: '$7.25',
     image: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8M3x8fGVufDB8fHx8&w=1000&q=80'
   },
   {
-    title: 'Sammy',
-    description: "Served with pickles, cardboard, and rice",
-    price: '$17.00',
+    title: 'Toad in a hole',
+    description: "With milk from a cow",
+    price: '$7.25',
     image: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8M3x8fGVufDB8fHx8&w=1000&q=80'
   },
   {
-    title: 'Giro',
-    description: "Served with pickles, cardboard, and rice",
-    price: '$17.00',
+    title: 'Toad in a hole',
+    description: "With milk from a cow",
+    price: '$7.25',
     image: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8M3x8fGVufDB8fHx8&w=1000&q=80'
   },
   {
-    title: 'Veggie',
-    description: "Served with pickles, cardboard, and rice",
-    price: '$17.00',
+    title: 'Toad in a hole',
+    description: "With milk from a cow",
+    price: '$7.25',
     image: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8M3x8fGVufDB8fHx8&w=1000&q=80'
-  }
+  },
+  {
+    title: 'Toad in a hole',
+    description: "With milk from a cow",
+    price: '$7.25',
+    image: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8M3x8fGVufDB8fHx8&w=1000&q=80'
+  },
 ]
 
 const styles = StyleSheet.create( {
   menuItemStyle: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    flexDirection: "row",
+    justifyContent: "space-evenly",
     margin: 20,
   },
-  tileStyle: {
+  titleStyle: {
     fontSize: 19,
-    fontWeight: '600'
-  }
+    fontWeight: "600",
+  },
 } )
 
 
@@ -85,14 +91,13 @@ export default function MenuItems () {
           />
         </View>
       ) ) }
-      <View style={ { height: 340 } } />
     </ScrollView>
   )
 }
 
 const FoodInfo = ( { food } ) => (
   <View style={ { width: 230, justifyContent: 'space-evenly' } }>
-    <Text style={ styles.tileStyle }>{ food.title }</Text>
+    <Text style={ styles.titleStyle }>{ food.title }</Text>
     <Text>{ food.description }</Text>
     <Text>{ food.price }</Text>
   </View>
