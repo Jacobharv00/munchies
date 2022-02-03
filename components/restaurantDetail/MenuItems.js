@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, Image, ScrollView } from 'react-native'
 import BouncyCheckbox from 'react-native-bouncy-checkbox'
 import { Divider } from 'react-native-elements'
+import { useDispatch } from 'react-redux'
 
 // customize with real data later?
 const foods = [
@@ -66,8 +67,15 @@ const styles = StyleSheet.create( {
   },
 } )
 
+export default function MenuItems ( { restaurantName } ) {
+  const dispatch = useDispatch()
 
-export default function MenuItems () {
+  const selectItem = ( item ) =>
+    dispatch( {
+      type: 'ADD_TO_CART',
+      payload: { ...item, restaurantName: restaurantName }
+    } )
+
   return (
     <ScrollView showsVerticalScrollIndicator={ false }>
       { foods.map( ( food, index ) => (
@@ -80,6 +88,7 @@ export default function MenuItems () {
               } }
               fillColor='purple'
               size={ 15 }
+              onPress={ () => selectItem( food ) }
             />
             <FoodInfo food={ food } />
             <FoodImage food={ food } />
