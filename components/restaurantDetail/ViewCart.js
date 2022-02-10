@@ -1,8 +1,12 @@
-import { View, Text, TouchableOpacity } from 'react-native'
+import { useState } from 'react'
+import { View, Text, TouchableOpacity, Modal, StyleSheet } from 'react-native'
 import { useSelector } from 'react-redux'
+import OrderItem from './OrderItem'
+
 
 export default function ViewCart () {
-  const items = useSelector( state => state.cartReducer.selectedItems.items )
+  const [ modalVisible, setModalVisible ] = useState( false )
+  const { items, restaurantName } = useSelector( state => state.cartReducer.selectedItems )
 
   const total = items
     .map( ( item ) => Number( item.price.replace( "$", "" ) ) )
@@ -16,8 +20,101 @@ export default function ViewCart () {
   console.log( 'items =', items )
   console.log( 'totalUSD =', totalUSD )
 
+  // Styles for Modal
+  const styles = StyleSheet.create( {
+    modalContainer: {
+      flex: 1,
+      justifyContent: 'flex-end',
+      backgroundColor: "rgba(0,0,0,0.7)"
+    },
+    modalCheckoutContainer: {
+      backgroundColor: 'white',
+      padding: 16,
+      height: 500,
+      borderWidth: 1
+    },
+    restaurantName: {
+      textAlign: 'center',
+      fontWeight: '700',
+      fontSize: 20,
+      marginBottom: 10
+    },
+    subtotalContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginTop: 20
+    },
+    subTotalText: {
+      textAlign: 'left',
+      fontWeight: '600',
+      fontSize: 16,
+      marginBottom: 10
+    }
+  } )
+
+  const checkoutModalContent = () => {
+    return (
+      <>
+        <View style={ styles.modalContainer }>
+          <View style={ styles.modalCheckoutContainer }>
+            <Text style={ styles.restaurantName }>{ restaurantName }</Text>
+            { items.map( ( item, index ) => (
+              <OrderItem key={ index } item={ item } />
+            ) ) }
+            <View style={ styles.subtotalContainer }>
+              <Text style={ styles.subTotalText }>Subtotal</Text>
+              <Text>{ totalUSD }</Text>
+            </View>
+            <View style={ { flexDirection: 'row', justifyContent: 'center' } }>
+              <TouchableOpacity style={ {
+                marginTop: 20,
+                borderWidth: 0.5,
+                borderColor: 'red',
+                backgroundColor: 'white',
+                alignItems: 'center',
+                padding: 13,
+                borderRadius: 30,
+                width: 300,
+                position: 'relative'
+              } }
+                onPress={ () => setModalVisible( false ) }
+              >
+                <Text style={ {
+                  color: 'red',
+                  fontSize: 20,
+                  right: 40,
+                  fontWeight: '600',
+                } }>
+                  Checkout
+                </Text>
+                <Text style={ {
+                  position: 'absolute',
+                  color: 'red',
+                  right: 45,
+                  fontSize: 20,
+                  fontWeight: '500',
+                  top: 13
+                } }>
+                  { total ? totalUSD : '' }
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </>
+    )
+  }
+
   return (
     <>
+      <Modal
+        animationType='slide'
+        visible={ modalVisible }
+        transparent={ true }
+        onRequestClose={ () => setModalVisible( false ) }
+      >
+        { checkoutModalContent() }
+      </Modal>
       { total ? (
         <View
           style={ {
@@ -48,8 +145,9 @@ export default function ViewCart () {
                 padding: 12,
                 borderRadius: 30,
                 width: 300,
-                position: "relative",
+                position: "relative"
               } }
+              onPress={ () => setModalVisible( true ) }
             >
               <Text style={ {
                 color: "red",
