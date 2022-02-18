@@ -67,7 +67,8 @@ const styles = StyleSheet.create( {
   },
 } )
 
-export default function MenuItems ( { restaurantName } ) {
+export default function MenuItems ( { restaurantName, foods, hideCheckbox, marginLeft } ) {
+
   const dispatch = useDispatch()
 
   const selectItem = ( item, checkboxValue ) =>
@@ -91,18 +92,19 @@ export default function MenuItems ( { restaurantName } ) {
       { foods.map( ( food, index ) => (
         <View key={ index }>
           <View style={ styles.menuItemStyle }>
-            <BouncyCheckbox
-              iconStyle={ {
-                borderColor: 'lightgrey',
-                borderRadius: 0,
-              } }
-              fillColor='purple'
-              size={ 15 }
-              onPress={ ( checkboxValue ) => selectItem( food, checkboxValue ) }
-              isChecked={ isFoodInCart( food, cartItems ) }
-            />
+            { hideCheckbox ? ( <></> ) : (
+              <BouncyCheckbox
+                iconStyle={ {
+                  borderColor: 'lightgrey',
+                  borderRadius: 0,
+                } }
+                fillColor='purple'
+                size={ 15 }
+                onPress={ ( checkboxValue ) => selectItem( food, checkboxValue ) }
+                isChecked={ isFoodInCart( food, cartItems ) }
+              /> ) }
             <FoodInfo food={ food } />
-            <FoodImage food={ food } />
+            <FoodImage food={ food } marginLeft={ marginLeft ? marginLeft : 0 } />
           </View>
           <Divider
             width={ 0.5 }
@@ -123,7 +125,7 @@ const FoodInfo = ( { food } ) => (
   </View>
 )
 
-const FoodImage = ( { food } ) => (
+const FoodImage = ( { food, marginLeft } ) => (
   <View>
     <Image
       source={ { uri: food.image } }
@@ -131,6 +133,7 @@ const FoodImage = ( { food } ) => (
         width: 100,
         height: 100,
         borderRadius: 8,
+        marginLeft: marginLeft
       } }
     />
   </View>
