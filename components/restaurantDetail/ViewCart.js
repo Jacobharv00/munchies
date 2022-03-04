@@ -3,11 +3,13 @@ import { View, Text, TouchableOpacity, Modal, StyleSheet } from 'react-native'
 import { useSelector } from 'react-redux'
 import OrderItem from './OrderItem'
 import firebase from '../../firebase'
+import LottieView from 'lottie-react-native'
 
 
 export default function ViewCart ( { navigation } ) {
   const [ modalVisible, setModalVisible ] = useState( false )
   const { items, restaurantName } = useSelector( state => state.cartReducer.selectedItems )
+  const [ loading, setLoading ] = useState( false )
 
   const total = items
     .map( ( item ) => Number( item.price.replace( "$", "" ) ) )
@@ -27,9 +29,13 @@ export default function ViewCart ( { navigation } ) {
       items: items,
       restaurantName: restaurantName,
       createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    } ).then( () => {
+      setTimeout( () => {
+        setLoading( false )
+        setModalVisible( false )
+        navigation.navigate( 'OrderCompleted' )
+      }, 2500 )
     } )
-    setModalVisible( false )
-    navigation.navigate( 'OrderCompleted' )
   }
 
   // Styles for Modal
@@ -176,6 +182,22 @@ export default function ViewCart ( { navigation } ) {
       ) : (
         <></>
       ) }
+      { loading ? <View style={ {
+        backgroundColor: 'black',
+        position: 'absolute',
+        opacity: 0.6,
+        justifyContent: 'center',
+        alignItems: 'center',
+        flex: 1
+      } }>
+        <LottieView
+          style={ { height: 200 } }
+          source={ require( '../../assets/animations/scanner.json' ) }
+          autoPlay
+          speed={ 3 }
+        />
+      </View>
+        : <></> }
     </>
   )
 }
