@@ -24,6 +24,7 @@ export default function ViewCart ( { navigation } ) {
   console.log( 'totalUSD =', totalUSD )
 
   const addOrderToFireBase = () => {
+    setLoading( true )
     const db = firebase.firestore()
     db.collection( 'orders' ).add( {
       items: items,
@@ -32,7 +33,6 @@ export default function ViewCart ( { navigation } ) {
     } ).then( () => {
       setTimeout( () => {
         setLoading( false )
-        setModalVisible( false )
         navigation.navigate( 'OrderCompleted' )
       }, 2500 )
     } )
@@ -95,7 +95,10 @@ export default function ViewCart ( { navigation } ) {
                 width: 300,
                 position: 'relative'
               } }
-                onPress={ () => addOrderToFireBase() }
+                onPress={ () => {
+                  addOrderToFireBase()
+                  setModalVisible( false )
+                } }
               >
                 <Text style={ {
                   color: 'red',
@@ -188,7 +191,9 @@ export default function ViewCart ( { navigation } ) {
         opacity: 0.6,
         justifyContent: 'center',
         alignItems: 'center',
-        flex: 1
+        //flex: 1,
+        height: '100%',
+        width: '100%'
       } }>
         <LottieView
           style={ { height: 200 } }

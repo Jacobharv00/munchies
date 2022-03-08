@@ -39,8 +39,8 @@ export default function Home ( { navigation } ) {
 
 
   return (
-    <SafeAreaView style={ { backgroundColor: '#eee', flex: 1 } }>
-      <View style={ { backgroundColor: 'white', padding: 15 } }>
+    <SafeAreaView style={ { backgroundColor: '#E4BE9E', flex: 1 } }>
+      <View style={ { backgroundColor: '#E4BE9E', padding: 15 } }>
         <HeaderTabs activeTab={ activeTab } setActiveTab={ setActiveTab } />
         <SearchBar cityHandler={ setCity } />
       </View>

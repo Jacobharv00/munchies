@@ -1,4 +1,4 @@
-import { View, Text, Image, ScrollView } from 'react-native'
+import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native'
 
 const items = [
   {
@@ -31,24 +31,32 @@ const items = [
   }
 ]
 
-
 export default function Categories () {
   return (
     <View style={ {
       marginTop: 4,
-      backgroundColor: '#fff',
+      backgroundColor: '#FFEEDD',
       paddingVertical: 10,
-      paddingLeft: 20
+      paddingLeft: 20,
+      borderRadius: 3
     } }>
       <ScrollView horizontal showsHorizontalScrollIndicator={ false }>
         { items.map( ( item, index ) => (
           <View key={ index } style={ { alignItems: 'center', marginRight: 30 } }>
-            <Image source={ item.image } style={ {
-              width: 50,
-              height: 40,
-              resizeMode: 'contain'
-            } } />
-            <Text style={ { fontSize: 13, fontWeight: '900' } }>{ item.text }</Text>
+            <TouchableOpacity style={ { alignItems: 'center' } }>
+              <Image source={ item.image } style={ {
+                width: 50,
+                height: 40,
+                resizeMode: 'contain'
+              } } />
+              <Text style={ {
+                fontSize: 13,
+                fontWeight: '900',
+                color: '#1F1300'
+              } }>
+                { item.text }
+              </Text>
+            </TouchableOpacity>
           </View>
         ) ) }
       </ScrollView>

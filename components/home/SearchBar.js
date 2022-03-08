@@ -19,13 +19,16 @@ export default function SearchBar ( { cityHandler } ) {
         placeholder='Search'
         styles={ {
           textInput: {
-            backgroundColor: '#eee',
+            backgroundColor: '#E4BE9E',
+            color: '#1F1300',
             borderRadius: 20,
             fontWeight: '700',
             marginTop: 7
           },
           textInputContainer: {
-            backgroundColor: '#eee',
+            backgroundColor: '#E4BE9E',
+            borderColor: '#1F1300',
+            borderWidth: '1em',
             borderRadius: 50,
             flexDirection: 'row',
             alignItems: 'center',
@@ -41,7 +44,9 @@ export default function SearchBar ( { cityHandler } ) {
           <View style={ {
             flexDirection: 'row',
             marginRight: 8,
-            backgroundColor: 'white',
+            backgroundColor: '#E4BE9E',
+            // borderColor: '#DB5461',
+            // borderWidth: '1px',
             padding: 9,
             borderRadius: 30,
             alignItems: 'center'
